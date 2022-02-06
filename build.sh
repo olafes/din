@@ -1,0 +1,1 @@
+g++ -g ./main.cpp ./src/tree.cpp ./src/node.cpp -o ./main.o && ./main.o
