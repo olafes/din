@@ -1,0 +1,4 @@
+.vscode
+main.o
+include/splay-tree.h
+src/splay-tree.cpp

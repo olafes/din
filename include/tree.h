@@ -1,3 +1,6 @@
+#ifndef TREE_H
+#define TREE_H
+
 #include "./node.h";
 
 namespace Splay {
@@ -17,3 +20,5 @@ namespace Splay {
     void flip();
   };
 };
+
+#endif
