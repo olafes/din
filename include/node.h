@@ -18,18 +18,17 @@ namespace Splay {
     Node<T>* right;
     Node<T>* parent;
 
-    size_t size;
-    size_t max;
+    size_t subtree_sizes_sum;
     bool flip;
 
-    Node<T>(T value, size_t size, size_t max, bool flip = false): value{value}, size{size}, max{max}, flip{flip} {};
-  public:
+    size_t subtree_sizes_max;
+
+    Node<T>(T value, size_t size, size_t subtree_sizes_sum, bool flip = false);
     ~Node<T>();
-    
-    T value;
+  public:
+    const T value;
+    const size_t size;
   };
 };
 
-
-// #include "../src/node.cpp"
 #endif

@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <utility>
+#include <tuple>
 
 #include "./node.h"
 
@@ -10,30 +11,30 @@ namespace Splay {
   template <class T>
   class Node;
 
-
   template <class T>
   class Tree {
   private:
     Node<T>* root;
 
-    void splay(Node<T>* x);
-    void rotate_right(Node<T>* x);
-    void rotate_left(Node<T>* x);
-    Node<T>* min();
-    Node<T>* max();
+    void splay(Node<T>* x) const;
+    void rotate_right(Node<T>* x) const;
+    void rotate_left(Node<T>* x) const;
     void discharge(Node<T>* x);
-    Tree<T>(Node<T>* root): root{root} {};
+
+    // Tree<T>(Node<T>* root): root{root} {};
   public:
     Tree<T>(T elements[], size_t length);
     ~Tree();
 
-    Node<T>* find(size_t index);
-    Tree<T> split(size_t index);
-    void join(Tree<T> right);
-    void flip();
+    Node<T>* min() const;
+    Node<T>* max() const;
+    Node<T>* find(size_t index) const;
+
+    void reverse();
+
+    std::tuple<Tree<T>*, Tree<T>*> split(size_t index);
+    static Tree<T>* join(Tree<T>* left, Tree<T>* right);
   };
 };
-
-// #include "../src/tree.cpp"
 
 #endif
