@@ -1,1 +1,1 @@
-g++ -g ./main.cpp ./src/tree.cpp ./src/node.cpp -o ./main.o && ./main.o
+g++ -g -std=c++17 ./main.cpp ./src/tree.cpp ./src/node.cpp -o ./main.o && ./main.o

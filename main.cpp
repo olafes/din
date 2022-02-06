@@ -13,6 +13,10 @@ int main() {
   std::cout << x->value << std::endl;
   std::cout << y->value << std::endl;
 
+
+  Splay::Tree<const char> right = tree.split(3);
+  right.flip();
+  tree.join(right);
   // Splay::Node<const char>* x = tree.root->left->left;
   return 0;
 }
