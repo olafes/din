@@ -8,11 +8,15 @@ int main() {
 
   Splay::Tree<const char>* tree = new Splay::Tree<const char>(dna.data(), dna.length());
 
+  std::cout << tree->max_size() << std::endl;
+
   auto [left, right] = tree->split(6); // AAGCTTT, TTA
 
   right->reverse(); // AAGCTTT, ATT (not discharged)
 
   tree = Splay::Tree<const char>::join(left, right); // AAGCTTTATT
+
+  std::cout << tree->max_size() << std::endl;
 
 
 

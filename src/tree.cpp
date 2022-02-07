@@ -338,4 +338,12 @@ Splay::Tree<T>* Splay::Tree<T>::join(Tree<T>* left, Tree<T>* right) {
   return merged;
 }
 
+template <class T>
+size_t Splay::Tree<T>::max_size() const {
+  if (!this->root) {
+    return 0;
+  }
+  return std::max({this->root->size, this->root->subtree_sizes_max});
+}
+
 template class Splay::Tree<const char>;

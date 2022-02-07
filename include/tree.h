@@ -35,6 +35,8 @@ namespace Splay {
     void reverse();
     std::tuple<Tree<T>*, Tree<T>*> split(size_t index);
     static Tree<T>* join(Tree<T>* left, Tree<T>* right);
+    
+    size_t max_size() const;
   };
 };
 
