@@ -24,9 +24,9 @@ namespace Splay {
     void update(Node<T>* x) const;
 
     Tree<T>(Node<T>* root);
-    ~Tree();
   public:
     Tree<T>(T elements[], size_t length);
+    ~Tree();
 
     Node<T>* min() const;
     Node<T>* max() const;
@@ -35,7 +35,7 @@ namespace Splay {
     void reverse();
     std::tuple<Tree<T>*, Tree<T>*> split(size_t index);
     static Tree<T>* join(Tree<T>* left, Tree<T>* right);
-    
+
     size_t max_size() const;
   };
 };

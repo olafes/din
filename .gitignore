@@ -1,7 +1,2 @@
-.gitignore
 .vscode
 main.o
-include/splay-tree.h
-include/old-tree.h
-src/splay-tree.cpp
-src/old-tree.cpp
