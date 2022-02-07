@@ -8,13 +8,21 @@ int main() {
 
   Splay::Tree<const char>* tree = new Splay::Tree<const char>(dna.data(), dna.length());
 
+  auto [left, right] = tree->split(6); // AAGCTTT, TTA
+
+  right->reverse(); // AAGCTTT, ATT (not discharged)
+
+  tree = Splay::Tree<const char>::join(left, right); // AAGCTTTATT
 
 
 
-  // Splay::Node<const char>* x = tree.find(4);
-  // Splay::Node<const char>* y = tree.find(2);
+  // Splay::Node<const char>* x = tree->find(3);
 
   // std::cout << x->value << std::endl;
+
+
+  // Splay::Node<const char>* y = tree.find(2);
+
   // std::cout << y->value << std::endl;
 
 

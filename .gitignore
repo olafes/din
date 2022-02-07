@@ -1,3 +1,4 @@
+.gitignore
 .vscode
 main.o
 include/splay-tree.h

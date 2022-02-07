@@ -7,11 +7,11 @@ template <class T>
 Splay::Tree<T>::Tree(T elements[], size_t length) {
   Splay::Node<T>* placeholder = new Node<T>(elements[0], 0, 0);
 
-  Splay::Node<T>* current;
+  Splay::Node<T>* current = nullptr;
   Splay::Node<T>* child = placeholder;
 
   struct {
-    T value;
+    T* value;
     size_t size;
     size_t substree_sizes_sum;
     size_t substree_sizes_max;
@@ -19,12 +19,12 @@ Splay::Tree<T>::Tree(T elements[], size_t length) {
 
   size_t i = 0;
   while (i < length) {
-    data = {elements[i], 0, child->subtree_sizes_sum + child->size, std::max(child->size, child->subtree_sizes_max)};
-    while (data->value == elements[i]) {
-      data->size++;
+    data = {&elements[i], 0, child->subtree_sizes_sum + child->size, std::max(child->size, child->subtree_sizes_max)};
+    while (*(data.value) == elements[i]) {
+      data.size++;
       i++;
     }
-    current = new Node<T>(data.value, data.size, data.substree_sizes_sum, data.substree_sizes_max);
+    current = new Node<T>(*(data.value), data.size, data.substree_sizes_sum, data.substree_sizes_max);
     current->left = child;
     child->parent = current;
 
@@ -161,11 +161,11 @@ void Splay::Tree<T>::update(Node<T>* x) const {
   size_t subtree_sizes_max = 0;
   if (x->left) {
     subtree_sizes_sum += x->left->subtree_sizes_sum + x->left->size;
-    subtree_sizes_max = std::max(subtree_sizes_max, x->left->subtree_sizes_max, x->left->size);
+    subtree_sizes_max = std::max({subtree_sizes_max, x->left->subtree_sizes_max, x->left->size});
   }
   if (x->right) {
     subtree_sizes_sum += x->right->subtree_sizes_sum + x->right->size;
-    subtree_sizes_max = std::max(subtree_sizes_max, x->right->subtree_sizes_max, x->right->size);
+    subtree_sizes_max = std::max({subtree_sizes_max, x->right->subtree_sizes_max, x->right->size});
   }
 
   x->subtree_sizes_sum = subtree_sizes_sum;
@@ -179,8 +179,10 @@ Splay::Node<T>* Splay::Tree<T>::min() const {
   if (!m) {
     return nullptr;
   }
+  this->discharge(m);
   while (m->left) {
     m = m->left;
+    this->discharge(m);
   }
   return m;
 }
@@ -191,8 +193,10 @@ Splay::Node<T>* Splay::Tree<T>::max() const {
   if (!m) {
     return nullptr;
   }
+  this->discharge(m);
   while (m->right) {
     m = m->right;
+    this->discharge(m);
   }
   return m;
 }
@@ -204,7 +208,7 @@ Splay::Node<T>* Splay::Tree<T>::find(size_t index) const {
     size_t left_subtree_size_sum;
     do {
       this->discharge(x);
-      left_subtree_size_sum = (x->left) ? x->left->subtree_sizes_sum : 0;
+      left_subtree_size_sum = (x->left) ? x->left->subtree_sizes_sum+x->left->size : 0;
 
       if (index < left_subtree_size_sum) {
         x = x->left;
@@ -263,8 +267,11 @@ std::tuple<Splay::Tree<T>*, Splay::Tree<T>*> Splay::Tree<T>::split(size_t index)
     x->left = nullptr;
     delete x;
 
-    x = new Node<T>(value, delta);
+    x = new Node<T>(value, delta, 0);
     x->left = left;
+    if (x->left) {
+      x->left->parent = x;
+    }
 
     this->update(y);
   }
@@ -293,7 +300,7 @@ Splay::Tree<T>* Splay::Tree<T>::join(Tree<T>* left, Tree<T>* right) {
       merged = new Tree<T>(x);
     } else {
       size_t size = x->size + y->size;
-      Node<T>* z = new Node<T>(x->value, size);
+      Node<T>* z = new Node<T>(x->value, size, 0);
 
       z->left = x->left;
       if (z->left) {
