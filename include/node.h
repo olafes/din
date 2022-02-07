@@ -23,12 +23,14 @@ namespace Splay {
 
     size_t subtree_sizes_max;
 
-    Node<T>(T value, size_t size, size_t subtree_sizes_sum, bool flip = false);
+    Node<T>(T value, size_t size, size_t subtree_sizes_sum, size_t subtree_sizes_max = 0, bool flip = false);
     ~Node<T>();
   public:
     const T value;
     const size_t size;
   };
 };
+
+
 
 #endif
