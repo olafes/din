@@ -265,8 +265,10 @@ std::tuple<Splay::Tree<T>*, Splay::Tree<T>*> Splay::Tree<T>::split(size_t index)
     T value = x->value;
     Node<T>* left = x->left;
 
-    x->left->parent = nullptr;
-    x->left = nullptr;
+    if (x->left) {
+      x->left->parent = nullptr;
+      x->left = nullptr;
+    }
     delete x;
 
     x = new Node<T>(value, delta, 0);

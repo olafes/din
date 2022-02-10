@@ -10,13 +10,14 @@ int main() {
 
 
   auto [left, right] = tree->split(0);
-  std::cout << left->max_size() << std::endl;
 
-  // for (size_t i=0; i<dna.length(); i++) {
-  //   std::cout << left->find(i)->value;
-  // }
+  right->reverse();
+  tree = Splay::Tree<const char>::join(left, right);
 
-  // std::cout << std::endl;
+  for (size_t i=0; i<dna.length(); i++) {
+    std::cout << tree->find(i)->value;
+  }
+  std::cout << std::endl;
 
   // std::cout << std::endl;
   // std::cout << tree->max_size() << std::endl;
