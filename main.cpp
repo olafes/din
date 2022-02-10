@@ -8,16 +8,37 @@ int main() {
 
   Splay::Tree<const char>* tree = new Splay::Tree<const char>(dna.data(), dna.length());
 
-  std::cout << tree->max_size() << std::endl;
 
-  auto [left, right] = tree->split(6); // AAGCTTT, TTA
+  auto [left, right] = tree->split(0);
+  std::cout << left->max_size() << std::endl;
 
-  right->reverse(); // AAGCTTT, ATT (not discharged)
+  // for (size_t i=0; i<dna.length(); i++) {
+  //   std::cout << left->find(i)->value;
+  // }
 
-  tree = Splay::Tree<const char>::join(left, right); // AAGCTTTATT
+  // std::cout << std::endl;
 
-  std::cout << tree->max_size() << std::endl;
+  // std::cout << std::endl;
+  // std::cout << tree->max_size() << std::endl;
+  // for (size_t i=0; i<dna.length(); i++) {
+  //   std::cout << tree->find(i)->value;
+  // }
 
+  // std::cout << std::endl;
+  // // std::cout << tree->max_size() << std::endl;
+
+  // auto [left, right] = tree->split(6); // AAGCTTT, TTA
+ 
+  // right->reverse(); // AAGCTTT, ATT (not discharged)
+
+  // tree = Splay::Tree<const char>::join(left, right); // AAGCTTTATT
+
+  // std::cout << std::endl;
+  // std::cout << tree->max_size() << std::endl;
+  // for (size_t i=0; i<dna.length(); i++) {
+  //   std::cout << tree->find(i)->value;
+  // }
+  // std::cout << std::endl;
 
 
   // Splay::Node<const char>* x = tree->find(3);
