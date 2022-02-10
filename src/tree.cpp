@@ -205,16 +205,16 @@ template <class T>
 Splay::Node<T>* Splay::Tree<T>::find(size_t index) const {
   Node<T>* x = this->root;
   if (x) {
+    size_t prefix = 0;
     size_t left_subtree_size_sum;
-    size_t right_sum = 0;
     do {
       this->discharge(x);
-      left_subtree_size_sum = (x->left) ? x->left->subtree_sizes_sum+x->left->size+right_sum : right_sum;
+      left_subtree_size_sum = (x->left) ? x->left->subtree_sizes_sum+x->left->size : 0;
 
-      if (index < left_subtree_size_sum) {
+      if (index < prefix+left_subtree_size_sum) {
         x = x->left;
-      } else if (index >= left_subtree_size_sum+x->size) {
-        right_sum += left_subtree_size_sum+x->size;
+      } else if (index >= prefix+left_subtree_size_sum+x->size) {
+        prefix += left_subtree_size_sum+x->size;
         x = x->right;
       } else {
         break;
